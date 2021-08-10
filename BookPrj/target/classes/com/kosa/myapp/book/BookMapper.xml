@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kosa.myapp.book.IBookRepository">
+
+<resultMap type="com.kosa.myapp.book.BookVO" id="bookMap">
+	<result property="bookId" column="book_id"/>
+	<result property="bookTitle" column="book_title"/>
+	<result property="bookImage" column="book_image"/>
+	<result property="bookAuthor" column="book_author"/>
+	<result property="bookPrice" column="book_price"/>
+	<result property="locationId" column="location_id"/>
+</resultMap>
+
+<select id="getBookList" resultMap="bookMap">
+	select * from book
+</select>
+
+
+<select id="getBookInfo" parameterType="int" resultType="com.kosa.myapp.book.BookVO">
+	select book_id as bookId,
+		   book_title as bookTitle,
+		   book_image as bookImage,
+		   book_author as bookAuthor,
+		   book_price as bookPrice,
+		   location_id as locationId 
+	from book
+	where book_id = #{bookId}
+</select>
+
+<insert id="insertBook" parameterType="com.kosa.myapp.book.BookVO">
+	insert into book(book_id, book_title, book_image, book_author, book_price, location_id)
+	values (#{bookId}, #{bookTitle}, #{bookImage}, #{bookAuthor}, #{bookPrice}, #{locationId})
+</insert>
+
+<update id="updateBook" parameterType="com.kosa.myapp.book.BookVO">
+	update book
+	set book_title = #{bookTitle},
+		book_image = #{bookImage},
+		book_Author = #{bookAuthor},
+		book_Price = #{bookPrice},
+		Location_id = #{locationId}
+	where book_id = #{bookId}
+</update>
+
+<delete id="deleteBook">
+	delete from book
+	where book_id = #{bookid} and book_title = #{booktitle}
+</delete>
+
+<select id="getAllLocationId" resultType="hashmap">
+	select 
+	location_id as "locationId", location_name as "locationName"
+	from book_location
+</select>
+</mapper>
