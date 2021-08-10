@@ -1,13 +1,13 @@
 package com.kosa.myapp.rent;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class RentVO {
 	private int rentId;
 	private int bookId;
 	private int userId;
-	private Timestamp rentDate;
-	private Timestamp returnDate;
+	private Date rentDate;
+	private Date returnDate;
 	
 	public int getRentId() {
 		return rentId;
@@ -27,16 +27,16 @@ public class RentVO {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public Timestamp getRentDate() {
+	public Date getRentDate() {
 		return rentDate;
 	}
-	public void setRentDate(Timestamp rentDate) {
+	public void setRentDate(Date rentDate) {
 		this.rentDate = rentDate;
 	}
-	public Timestamp getReturnDate() {
+	public Date getReturnDate() {
 		return returnDate;
 	}
-	public void setReturnDate(Timestamp returnDate) {
+	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
 	}
 	@Override
@@ -47,3 +47,4 @@ public class RentVO {
 	
 	
 }
+

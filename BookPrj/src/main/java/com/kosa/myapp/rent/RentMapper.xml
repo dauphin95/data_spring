@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kosa.myapp.rent.IRentRepository">
+
+	<resultMap type="com.kosa.myapp.rent.RentVO" id="rentMap">
+		<result column = "rent_id"		property = "rentId"/>
+		<result column = "book_id"		property = "bookId"/>
+		<result column = "user_id"		property = "userId"/>
+		<result column = "rent_date"	property = "rentDate"/>
+		<result column = "return_date"	property = "returnDate"/>
+	</resultMap>
+	
+	<select id="getRentList" resultMap= "rentMap">
+		SELECT * FROM book_rent
+	</select>
+	
+	<select id="getRentInfo" parameterType="int" resultType = "com.kosa.myapp.rent.RentVO">
+		SELECT	rent_id		AS	rentId,
+				book_id		AS	bookId,
+				user_id		AS	userId,
+				rent_date	AS	rentDate,
+				return_date	AS	returnDate
+		FROM	book_rent WHERE rent_id =#{rentid}
+	</select>
+	
+	<insert id="insertRentInfo" parameterType = "com.kosa.myapp.rent.RentVO">
+		INSERT INTO book_rent (rent_id, book_id, user_id, rent_date, return_date)
+		VALUES (#{rentId}, #{bookId}, #{userId}, #{rentDate}, #{rentDate}+7)
+	</insert>
+	
+	<update id="updateRentInfo" parameterType = "com.kosa.myapp.rent.RentVO">
+		UPDATE rent_book
+		SET book_id=#{bookId}, user_id=#{userId}, rent_date=#{rentDate}, return_date=#{returnDate}
+		WHERE rent_id=#{rentId}
+	</update>
+	
+	<delete id="deleteRentInfo" parameterType = "com.kosa.myapp.rent.RentVO">
+		DELETE rent_book WHERE rent_id=#{rentId} AND user_id=#{userId}
+	</delete>
+	
+	<select id="getAllBookId" resultType="hashmap">
+		SELECT
+			book_id AS "bookId",
+			book_title AS "bookTitle"
+		FROM book
+		ORDER BY book_id
+	</select>
+	
+		<select id="getAllUserId" resultType="hashmap">
+		SELECT
+			user_id AS "userId",
+			user_name AS "userName"
+		FROM users 
+		ORDER BY user_id
+	</select>
+
+</mapper>
